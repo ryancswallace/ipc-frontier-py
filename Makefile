@@ -1,0 +1,109 @@
+# Project constants
+PACKAGE := ipc_frontier
+PYTHON_VERSION := 3.13.7
+PACKAGE_DIR := "$(PACKAGE)/"
+TEST_DIR := tests/
+CLEAN_PRUNE_DIRS := .git .venv
+
+# Executables
+PYENV ?= pyenv
+POETRY ?= poetry
+GIT ?= git
+PRINT ?= printf
+PYTHON := python
+
+# Environment variables
+export PYTHONNOUSERSITE := 1
+unexport PYTHONPATH
+
+# Targets
+.PHONY: help
+help: ## Show this help.
+	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+
+.PHONY: all
+all: ## Install tools, setup project, format code, run tests, and clean repo
+all: install-tools setup fmt test clean changes
+
+.PHONY: install-tools
+install-tools: ## Install Pyenv and Poetry
+install-tools: install-pyenv install-poetry
+
+.PHONY: install-pyenv
+install-pyenv:
+	@if [ -d "$$HOME/.pyenv" ]; then \
+		echo "==> Updating existing Pyenv..."; \
+		cd "$$HOME/.pyenv" && git pull origin master; \
+	else \
+		echo "==> Installing Pyenv..."; \
+		@git clone https://github.com/pyenv/pyenv.git "$$HOME/.pyenv"; \
+	fi; \
+	echo 'export PYENV_ROOT="$$HOME/.pyenv"' >> "$$HOME/.bashrc"; \
+	echo 'export PATH="$$PYENV_ROOT/bin:$$PATH"' >> "$$HOME/.bashrc"; \
+	echo 'eval "$$(pyenv init -)"' >> "$$HOME/.bashrc"
+	@printf "\n\033[91mIMPORTANT NOTE:\033[0m If this is your first time installing Pyenv, you must run 'source ~/.bashrc' in your current terminal to make Pyenv accessible.\n"
+
+.PHONY: install-poetry
+install-poetry:
+	@curl -sSL https://install.python-poetry.org | /usr/bin/python3.11 -
+	@echo 'export PATH="$$PATH:~/.local/bin"' >> ~/.bashrc
+	@printf "\n\033[91mIMPORTANT NOTE:\033[0m If this is your first time installing Poetry, you must run 'source ~/.bashrc' in your current terminal to make Poetry accessible.\n"
+
+.PHONY: init
+init:  ## ONE-TIME, INTERACTIVE project Pyenv and Poetry setup
+	$(PYENV) local $(PYTHON_VERSION)
+	$(POETRY) init
+
+.PHONY: setup
+setup:  ## Download Python, then create a Poetry environment and install the package
+	TMPDIR="${HOME}/tmp" $(PYENV) install --skip-existing $$(cat .python-version) \
+	&& $(POETRY) config virtualenvs.in-project true \
+	&& $(POETRY) env use $$($(PYENV) which python) \
+	&& $(POETRY) install --all-groups --no-interaction
+
+.PHONY: fmt
+fmt: ## Apply auto code formatting and linting.
+	$(POETRY) run ruff check . --fix
+	$(POETRY) run ruff format .
+
+.PHONY: fmttest
+fmt: ## Test whether code is formatted correctly.
+	$(POETRY) run ruff check .
+
+.PHONY: typetest
+typetest: ## Run type checks.
+	$(POETRY) run pyright $(PACKAGE_DIR) $(TEST_DIR)
+
+.PHONY: unittest
+unittest: ## Run unit tests and end-to-end tests.
+	$(POETRY) run pytest
+
+.PHONY: test
+test: ## Run all tests: type tests, unit tests, and end-to-end tests.
+test: typetest unittest
+
+.PHONY: clean
+clean: ## Delete build/test/coverage artifacts.
+	@find . \
+	  $(foreach d,$(PRUNE_DIRS),-path './$(d)' -prune -o) \
+	  \( \
+	    -name '__pycache__' -o \
+	    -name '.pytest_cache' -o \
+	    -name '.mypy_cache' -o \
+	    -name '.ruff_cache' -o \
+	    -name 'htmlcov' -o \
+	    -name 'build' -o \
+	    -name 'dist' -o \
+	    -name '*.egg-info' -o \
+	    -name '.coverage' -o \
+	    -name '.coverage.*' -o \
+	    -name 'coverage.xml' -o \
+	    -name '*.pyc' -o \
+	    -name '*.pyo' \
+	  \) -exec rm -rf -- {} +
+
+.PHONY: changes
+changes: ## Check for uncommitted changes.
+	@$(GIT) status --porcelain=v1 2>/dev/null | grep -q '.*' \
+	&& { $(PRINT) "\nFAILED: Uncommitted changes. Changes to docs or formatting?\n"; exit 1; } \
+	|| { $(PRINT) "\nSUCCESS: Ready to release.\n"; exit 0; }

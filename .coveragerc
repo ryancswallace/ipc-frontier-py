@@ -1,0 +1,13 @@
+[run]
+branch = True
+source = ipc_frontier
+omit =
+    tests/*
+    */__init__.py
+
+[report]
+show_missing = True
+skip_covered = True
+exclude_lines =
+    if __name__ == .__main__.:
+    pragma: no cover

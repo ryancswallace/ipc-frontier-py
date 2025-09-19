@@ -1,0 +1,67 @@
+[project]
+name = "ipc-frontier-py"
+version = "0.1.0"
+description = "Benchmarks comparing Python concurrency models--threads, Queue-based multiprocessing, and SharedMemory-based multiprocessing--for moving and processing NumPy arrays."
+authors = [
+    {name = "Ryan Wallace", email = "ryancswallace@gmail.com"}
+]
+readme = "README.md"
+keywords = [
+    "concurrency",
+    "threading",
+    "multiprocessing",
+    "ipc",
+    "shared-memory",
+    "serialization",
+    "numpy",
+    "benchmark",
+    "performance"
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Environment :: Console",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+    "Topic :: System :: Benchmark",
+    "Topic :: System :: Distributed Computing",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: MIT License"
+]
+requires-python = "3.13"
+dependencies = []
+
+[project.urls]
+homepage = "https://github.com/ryancswallace/ipc-frontier-py"
+repository = "https://github.com/ryancswallace/ipc-frontier-py"
+documentation = "https://github.com/ryancswallace/ipc-frontier-py"
+"Bug Tracker" = "https://github.com/ryancswallace/ipc-frontier-py/issues"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.13"
+pyright = "^1.1.401"
+pytest-cov = "^6.1.1"
+ipykernel = "^6.29.5"
+
+[tool.pytest.ini_options]
+addopts = "--cov=ipc_frontier --cov-report term --cov-report html"
+testpaths = [
+    "tests",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.packages]]
+include = "ipc_frontier"
+
+[tool.poetry.include]
+"ipc_frontier/py.typed" = { path = "ipc_frontier/py.typed" }
+
+[project.scripts]
+ipc-frontier = "ipc_frontier.__main__:main"
