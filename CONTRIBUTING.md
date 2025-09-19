@@ -1,4 +1,5 @@
 # Contributing
+
 We warmly welcome contributions to the `ipc-frontier-py` project!
 
 Please follow the merge request (PR) process described below in your interactions with the project.
