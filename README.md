@@ -1,6 +1,6 @@
 # `ipc-frontier-py`
 
-[![Build](https://github.com/ryancswallace/ipc-frontier-py/actions/workflows/ci.yml/badge.svg)](https://github.com/ryancswallace/ipc-frontier-py/actions/workflows/ci.yml)
+[![Build](https://github.com/ryancswallace/ipc-frontier-py/actions/workflows/ci.yaml/badge.svg)](https://github.com/ryancswallace/ipc-frontier-py/actions/workflows/ci.yaml)
 [![Coverage](https://img.shields.io/codecov/c/github/ryancswallace/ipc-frontier-py/main.svg?style=flat)](https://codecov.io/gh/ryancswallace/ipc-frontier-py)
 [![PyPI version](https://img.shields.io/pypi/v/ipc-frontier-py.svg)](https://pypi.org/project/ipc-frontier-py/)
 [![GitHub release](https://img.shields.io/github/v/release/ryancswallace/ipc-frontier-py.svg)](https://github.com/ryancswallace/ipc-frontier-py/releases)
