@@ -12,9 +12,12 @@ GIT ?= git
 PRINT ?= printf
 PYTHON := python
 
-# Environment variables
+# Python configurations
 export PYTHONNOUSERSITE := 1
 unexport PYTHONPATH
+
+# User shell configurations
+SHELL_RC ?= $$HOME/.zshrc
 
 # Targets
 .PHONY: help
@@ -36,18 +39,18 @@ install-pyenv:
 		cd "$$HOME/.pyenv" && git pull origin master; \
 	else \
 		echo "==> Installing Pyenv..."; \
-		@git clone https://github.com/pyenv/pyenv.git "$$HOME/.pyenv"; \
+		$(GIT) clone https://github.com/pyenv/pyenv.git "$$HOME/.pyenv"; \
 	fi; \
-	echo 'export PYENV_ROOT="$$HOME/.pyenv"' >> "$$HOME/.bashrc"; \
-	echo 'export PATH="$$PYENV_ROOT/bin:$$PATH"' >> "$$HOME/.bashrc"; \
-	echo 'eval "$$(pyenv init -)"' >> "$$HOME/.bashrc"
-	@printf "\n\033[91mIMPORTANT NOTE:\033[0m If this is your first time installing Pyenv, you must run 'source ~/.bashrc' in your current terminal to make Pyenv accessible.\n"
+	echo 'export PYENV_ROOT="$$HOME/.pyenv"' >> "$(SHELL_RC)"; \
+	echo 'export PATH="$$PYENV_ROOT/bin:$$PATH"' >> "$(SHELL_RC)"; \
+	echo 'eval "$$(pyenv init -)"' >> "$(SHELL_RC)"
+	@printf "\n\033[91mIMPORTANT NOTE:\033[0m If this is your first time installing Pyenv, you must source your shell's RC file to make Poetry accessible in your current terminal .\n"
 
 .PHONY: install-poetry
 install-poetry:
-	@curl -sSL https://install.python-poetry.org | /usr/bin/python3.11 -
-	@echo 'export PATH="$$PATH:~/.local/bin"' >> ~/.bashrc
-	@printf "\n\033[91mIMPORTANT NOTE:\033[0m If this is your first time installing Poetry, you must run 'source ~/.bashrc' in your current terminal to make Poetry accessible.\n"
+	@curl -sSL https://install.python-poetry.org | /usr/bin/python3
+	@echo 'export PATH="$$PATH:~/.local/bin"' >> "$(SHELL_RC)"
+	@printf "\n\033[91mIMPORTANT NOTE:\033[0m If this is your first time installing Poetry, you must source your shell's RC file to make Poetry accessible in your current terminal.\n"
 
 .PHONY: init
 init:  ## ONE-TIME, INTERACTIVE project Pyenv and Poetry setup
@@ -67,7 +70,7 @@ fmt: ## Apply auto code formatting and linting.
 	$(POETRY) run ruff format .
 
 .PHONY: fmttest
-fmt: ## Test whether code is formatted correctly.
+fmttest: ## Test whether code is formatted correctly.
 	$(POETRY) run ruff check .
 
 .PHONY: typetest
