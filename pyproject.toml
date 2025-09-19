@@ -60,8 +60,5 @@ build-backend = "poetry.core.masonry.api"
 [[tool.poetry.packages]]
 include = "ipc_frontier"
 
-[tool.poetry.include]
-"ipc_frontier/py.typed" = { path = "ipc_frontier/py.typed" }
-
 [project.scripts]
 ipc-frontier = "ipc_frontier.__main__:main"
