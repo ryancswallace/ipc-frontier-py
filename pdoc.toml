@@ -1,8 +1,0 @@
-modules = ["ipc_frontier"]
-output-directory = "site"
-docformat = "numpy"
-show-type-annotations = true
-search = true
-footer-text = "ipc-frontier-py"
-favicon = "docs/assets/favicon.ico"
-logo = "docs/assets/logo.svg"
