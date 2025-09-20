@@ -52,5 +52,6 @@
         "venv",
         "virtualenvs",
         "WORKTREE"
-    ]
+    ],
+    "makefile.configureOnOpen": false
 }

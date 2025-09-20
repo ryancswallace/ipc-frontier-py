@@ -1,0 +1,50 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run ipc_frontier.__main__ (prompt for args)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "ipc_frontier",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "subProcess": true,
+            "env": {
+                "OMP_NUM_THREADS": "1",
+                "MKL_NUM_THREADS": "1",
+                "OPENBLAS_NUM_THREADS": "1"
+            },
+            "envFile": "${workspaceFolder}/.env",
+            "args": [
+                "${input:benchArgs}"
+            ]
+        },
+        {
+            "name": "Run a single pytest module (prompt for module)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/.venv/bin/pytest",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "-q",
+                "${input:testPath}"
+            ],
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "benchArgs",
+            "type": "promptString",
+            "description": "ipc-frontier CLI arguments",
+            "default": ""
+        },
+        {
+            "id": "testPath",
+            "type": "promptString",
+            "description": "Filepath to test module (e.g., tests/test_cli.py)",
+            "default": "tests/"
+        }
+    ]
+}
