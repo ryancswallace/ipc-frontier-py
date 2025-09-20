@@ -13,13 +13,18 @@
 
 TODO
 
+## 📝 Benchmark Analysis
+
+For an analysis and discussion of the benchmark results, see the accompanying blog post ➡️ **[Benchmarking Python Concurrency Models for NumPy Array Operations](https://ryancswallace.dev/posts/python-numpy-concurrency-benchmarks/)**. ⬅️
+
+The write-up interprets the benchmark data, compares concurrency mechanisms in practical terms, and draws lessons for
+building efficient ML/AI workloads in Python.
+
 ## 📖 Documentation
 
-➡️ **[View the `ipc-frontier-py` documentation on GitHub Pages](https://ryancswallace.github.io/ipc-frontier-py/)** ⬅️
+The **[`ipc-frontier-py` documentation site](https://ryancswallace.github.io/ipc-frontier-py/)** provides a browsable and searchable reference for the package's modules, classes, and functions. Use the doc site to dig into both the package's public interfaces and its internal implementation details.
 
-The doc site provides a browsable and searchable reference for the package's modules, classes, and functions. Use the doc site to dig into both the package's public interfaces and its internal implementation details.
-
-The `ipc-frontier-py` documentation is automatically generated with [pdoc](https://pdoc.dev/) from the package’s source code docstrings and hosted on GitHub Pages. This site is built by the `pages` GitHub Actions workflow from the latest content of the `main` branch.
+The site is automatically generated with [pdoc](https://pdoc.dev/) from the package’s source code docstrings. The static site contents are hosted on GitHub Pages. This site is built by the `pages` GitHub Actions workflow from the latest content of the `main` branch.
 
 ## 🛠️ Development
 
