@@ -9,6 +9,7 @@
         "direnv",
         "dmypy",
         "fgrep",
+        "fmttest",
         "htmlcov",
         "importability",
         "ipykernel",
@@ -47,6 +48,7 @@
         "testpaths",
         "tomllib",
         "typetest",
+        "unittests",
         "venv",
         "virtualenvs",
         "WORKTREE"
