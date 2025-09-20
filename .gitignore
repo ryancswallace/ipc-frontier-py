@@ -56,7 +56,7 @@ dev.ipynb
 TODO.md
 NOTES.md
 
-# GitLab Pages output and static site generators (e.g., pdoc)
+# GitHub Pages output and static site generators (e.g., pdoc)
 public/
 site/
 _site/
