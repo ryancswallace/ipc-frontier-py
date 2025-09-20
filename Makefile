@@ -25,8 +25,12 @@ help: ## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 .PHONY: all
-all: ## Install tools, setup project, format code, run tests, and clean repo
+all: ## Install tools, setup project runtime, format code, run tests, and clean repo
 all: install-tools setup fmt test clean changes
+
+.PHONY: prerelease
+prerelease: ## Setup project runtime, format code, run tests, and clean repo
+prerelease: setup fmt test clean changes
 
 .PHONY: install-tools
 install-tools: ## Install Pyenv and Poetry
