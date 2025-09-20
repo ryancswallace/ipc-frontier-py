@@ -72,11 +72,11 @@ jobs:
         shell: bash
         run: |
           ver="$(
-            python - <<'PY'
-            import tomllib, pathlib
-            data = tomllib.loads(pathlib.Path("pyproject.toml").read_text(encoding="utf-8"))
-            print(data["project"]["version"])
-            PY
+            python - <<-'PY'
+						import tomllib, pathlib
+						data = tomllib.loads(pathlib.Path("pyproject.toml").read_text(encoding="utf-8"))
+						print(data["project"]["version"])
+PY
           )"
           echo "version=$ver" >> "$GITHUB_OUTPUT"
 
