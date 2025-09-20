@@ -11,4 +11,5 @@ def test_package_imports() -> None:
     Basic sanity check to guard against packaging or installation issues.
     """
     import ipc_frontier
+
     del ipc_frontier
