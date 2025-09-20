@@ -4,7 +4,8 @@ To release a new version of the package, follow Semantic Versioning (SemVer) to 
 
 ## Step-by-Step Procedure
 
-1. First, select the new version number following [SemVer](https://semver.org/).
+0. Ensure `make prerelease` exits printing "SUCCESS: Ready to release."
+1. Select the new version number following [SemVer](https://semver.org/).
 2. Use the convenience script `scripts/bumpver.sh` to bump the version in `pyproject.toml`. For example, to update to version `1.2.3`, run `./scripts/bumpver.sh 1.2.3`.
 3. Commit the version change, tag the commit, and push to GitHub. The `bumpver.sh` script prints a set of commands to do this. It's almost always easiest to just copy and paste these commands into the terminal to commit, tag, and push.
 

@@ -121,12 +121,10 @@ jobs:
           packages-dir: dist
           skip-existing: true
 
-      - name: Configure Poetry for GitHub Packages
-        env:
-          GH_OWNER: ${{ github.repository_owner }}
-        run: |
-          poetry config repositories.github "https://pypi.pkg.github.com/ryancswallace"
-          poetry config http-basic.github "${{ github.actor }}" "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Publish to GitHub Packages
-        run: poetry publish -r github -n
+      - name: Create GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: steps.check-version.outputs.prerelease == 'true'
