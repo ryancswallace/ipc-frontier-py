@@ -4,7 +4,5 @@ docformat = "numpy"
 show-type-annotations = true
 search = true
 footer-text = "ipc-frontier-py"
-# TODO
-# favicon = ""
-# logo = ""
-# link-prefix = ""
+favicon = "docs/assets/favicon.ico"
+logo = "docs/assets/logo.svg"
