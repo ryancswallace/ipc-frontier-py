@@ -4,6 +4,7 @@ PYTHON_VERSION := 3.13.7
 PACKAGE_DIR := "$(PACKAGE)/"
 TEST_DIR := tests/
 CLEAN_PRUNE_DIRS := .git .venv
+DOCS_SITE_DIR := site/
 
 # Executables
 PYENV ?= pyenv
@@ -89,6 +90,10 @@ unittest: ## Run unit tests and end-to-end tests.
 test: ## Run all tests: type tests, unit tests, and end-to-end tests.
 test: typetest unittest
 
+.PHONY: docs
+docs: ## Use pdoc to generate a static documentation site.
+	$(POETRY) run pdoc $(PACKAGE) -o $(DOCS_SITE_DIR)
+
 .PHONY: clean
 clean: ## Delete build/test/coverage artifacts.
 	@find . \
@@ -106,7 +111,8 @@ clean: ## Delete build/test/coverage artifacts.
 	    -name '.coverage.*' -o \
 	    -name 'coverage.xml' -o \
 	    -name '*.pyc' -o \
-	    -name '*.pyo' \
+	    -name '*.pyo' -o \
+	    -name 'site' \
 	  \) -exec rm -rf -- {} +
 
 .PHONY: changes

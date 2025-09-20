@@ -1,0 +1,10 @@
+modules = ["ipc_frontier"]
+output-directory = "site"
+docformat = "numpy"
+show-type-annotations = true
+search = true
+footer-text = "ipc-frontier-py"
+# TODO
+# favicon = ""
+# logo = ""
+# link-prefix = ""

@@ -25,6 +25,7 @@
         "numpy",
         "OPENBLAS",
         "pathlib",
+        "pdoc",
         "pipx",
         "pycache",
         "pycodestyle",

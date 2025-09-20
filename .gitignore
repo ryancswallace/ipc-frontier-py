@@ -56,8 +56,9 @@ dev.ipynb
 TODO.md
 NOTES.md
 
-# GitLab Pages output and static site generators (e.g., Jekyll)
+# GitLab Pages output and static site generators (e.g., pdoc)
 public/
+site/
 _site/
 .sass-cache/
 .jekyll-cache/
