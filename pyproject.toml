@@ -1,6 +1,6 @@
 [project]
 name = "ipc-frontier-py"
-version = "0.1.9"
+version = "0.1.10"
 description = "Benchmarks comparing Python concurrency models--threads, Queue-based multiprocessing, and SharedMemory-based multiprocessing--for moving and processing NumPy arrays."
 authors = [
     {name = "Ryan Wallace", email = "ryancswallace@gmail.com"}
