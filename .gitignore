@@ -72,7 +72,7 @@ vendor/
 .DS_Store
 Thumbs.db
 
-# VS Code files for non-standard editors
+# VS Code files
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
