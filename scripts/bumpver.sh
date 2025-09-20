@@ -36,7 +36,7 @@ echo "Updating to version $VERSION with tag $TAG..."
 
 # update pyproject.toml
 echo "Updating version in pyproject.toml..."
-sed -i 's/version = "[0-9]\+\.[0-9]\+\.[0-9]\+.*"/version = "'"$VERSION"'"/g' pyproject.toml
+sed -i '' -E 's/version = "[0-9]\+\.[0-9]\+\.[0-9]\+.*"/version = "'"$VERSION"'"/g' pyproject.toml
 
 # check that pyproject.toml changed
 git status --porcelain=v1 2>/dev/null | grep -q 'M pyproject.toml'
