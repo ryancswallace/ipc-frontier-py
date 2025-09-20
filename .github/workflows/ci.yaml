@@ -63,6 +63,14 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
         run: make unittest
 
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          flags: unittests
+          fail_ci_if_error: true
+          verbose: true
+
       - name: Upload HTML coverage artifact
         if: always()
         uses: actions/upload-artifact@v4

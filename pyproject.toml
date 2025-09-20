@@ -48,7 +48,7 @@ pytest-cov = "^6.1.1"
 ipykernel = "^6.29.5"
 
 [tool.pytest.ini_options]
-addopts = "--cov=ipc_frontier --cov-report term --cov-report html"
+addopts = "--cov=ipc_frontier --cov-report term --cov-report html --cov-report xml:coverage.xml"
 testpaths = [
     "tests",
 ]
