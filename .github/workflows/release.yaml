@@ -69,18 +69,20 @@ jobs:
 
       - name: Extract version from pyproject.toml
         id: version
+        shell: bash
         run: |
-          python - <<'PY'
-          import tomllib, pathlib
-          ver = tomllib.loads(pathlib.Path("pyproject.toml").read_text(encoding="utf-8"))["project"]["version"]
-          print(f"version={ver}")
-          PY
-        shell: bash | tee version.env
+          ver="$(
+            python - <<'PY'
+            import tomllib, pathlib
+            data = tomllib.loads(pathlib.Path("pyproject.toml").read_text(encoding="utf-8"))
+            print(data["project"]["version"])
+            PY
+          )"
+          echo "version=$ver" >> "$GITHUB_OUTPUT"
 
-      - name: Export VERSION
-        run: |
-          source version.env
-          echo "VERSION=$version" >> "$GITHUB_ENV"
+      - name: Export VERSION variable
+        shell: bash
+        run: echo "VERSION=${{ steps.version.outputs.version }}" >> "$GITHUB_ENV"
 
       # Publishing gate: fail if the pushed tag does not match the pyproject.toml project.version value
       - name: Verify tag matches project.version
