@@ -2,9 +2,10 @@
 
 [![Build](https://github.com/ryancswallace/ipc-frontier-py/actions/workflows/ci.yaml/badge.svg)](https://github.com/ryancswallace/ipc-frontier-py/actions/workflows/ci.yaml)
 [![Coverage](https://codecov.io/github/ryancswallace/ipc-frontier-py/branch/main/graph/badge.svg)](https://codecov.io/github/ryancswallace/ipc-frontier-py)
-[![PyPI version](https://img.shields.io/pypi/v/ipc-frontier-py.svg)](https://pypi.org/project/ipc-frontier-py/)
-[![License](https://img.shields.io/github/license/ryancswallace/ipc-frontier-py.svg)](https://github.com/ryancswallace/ipc-frontier-py/blob/main/LICENSE)
+[![PyPI Version](https://img.shields.io/pypi/v/ipc-frontier-py.svg)](https://pypi.org/project/ipc-frontier-py/)
+[![Docs Site](https://img.shields.io/badge/docs-GitHub_Pages-blue)](https://ryancswallace.github.io/ipc-frontier-py/)
 [![Security Policy](https://img.shields.io/badge/security-policy-blue.svg)](https://github.com/ryancswallace/ipc-frontier-py/blob/main/SECURITY.md)
+[![License](https://img.shields.io/github/license/ryancswallace/ipc-frontier-py.svg)](https://github.com/ryancswallace/ipc-frontier-py/blob/main/LICENSE)
 
 ---
 
@@ -12,7 +13,15 @@
 
 TODO
 
-## Development 🛠️
+## 📖 Documentation
+
+➡️ **[View the `ipc-frontier-py` documentation on GitHub Pages](https://ryancswallace.github.io/ipc-frontier-py/)** ⬅️
+
+The doc site provides a browsable and searchable reference for the package's modules, classes, and functions. Use the doc site to dig into both the package's public interfaces and its internal implementation details.
+
+The `ipc-frontier-py` documentation is automatically generated with [pdoc](https://pdoc.dev/) from the package’s source code docstrings and hosted on GitHub Pages. This site is built by the `pages` GitHub Actions workflow from the latest content of the `main` branch.
+
+## 🛠️ Development
 
 This section contains info about developing the `ipc_frontier` Python package itself.
 
