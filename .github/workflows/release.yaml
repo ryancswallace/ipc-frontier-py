@@ -71,13 +71,9 @@ jobs:
         id: version
         shell: bash
         run: |
-          ver="$(
-            python - <<-'PY'
-						import tomllib, pathlib
-						data = tomllib.loads(pathlib.Path("pyproject.toml").read_text(encoding="utf-8"))
-						print(data["project"]["version"])
-PY
-          )"
+          ver="$(python -c 'import tomllib, pathlib; \
+            p=pathlib.Path("pyproject.toml"); \
+            print(tomllib.loads(p.read_text(encoding="utf-8"))["project"]["version"])')"
           echo "version=$ver" >> "$GITHUB_OUTPUT"
 
       - name: Export VERSION variable
