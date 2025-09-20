@@ -5,7 +5,7 @@
 ###
 ### For example, to bump the version to 1.2.3, with a clean working
 ### tree, run the following command:
-### $ ./bumpver.sh 1.2.3
+### $ ./bump_version.sh 1.2.3
 ###
 ### The script will do the following:
 ### 0. Check that the working tree is clean
