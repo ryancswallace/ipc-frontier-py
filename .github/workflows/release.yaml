@@ -120,11 +120,3 @@ jobs:
         with:
           packages-dir: dist
           skip-existing: true
-
-      - name: Create GitHub release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "dist/*"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          draft: false
-          prerelease: steps.check-version.outputs.prerelease == 'true'

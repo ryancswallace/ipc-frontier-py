@@ -3,7 +3,6 @@
 [![Build](https://github.com/ryancswallace/ipc-frontier-py/actions/workflows/ci.yaml/badge.svg)](https://github.com/ryancswallace/ipc-frontier-py/actions/workflows/ci.yaml)
 [![Coverage](https://codecov.io/github/ryancswallace/ipc-frontier-py/branch/main/graph/badge.svg)](https://codecov.io/github/ryancswallace/ipc-frontier-py)
 [![PyPI version](https://img.shields.io/pypi/v/ipc-frontier-py.svg)](https://pypi.org/project/ipc-frontier-py/)
-[![GitHub release](https://img.shields.io/github/v/release/ryancswallace/ipc-frontier-py.svg)](https://github.com/ryancswallace/ipc-frontier-py/releases)
 [![License](https://img.shields.io/github/license/ryancswallace/ipc-frontier-py.svg)](https://github.com/ryancswallace/ipc-frontier-py/blob/main/LICENSE)
 [![Security Policy](https://img.shields.io/badge/security-policy-blue.svg)](https://github.com/ryancswallace/ipc-frontier-py/blob/main/SECURITY.md)
 
