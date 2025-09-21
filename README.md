@@ -20,6 +20,63 @@ For an analysis and discussion of the benchmark results, see the accompanying bl
 The write-up interprets the benchmark data, compares concurrency mechanisms in practical terms, and draws lessons for
 building efficient ML/AI workloads in Python.
 
+## ▶️ Running the Benchmarks
+
+You can run **ipc-frontier-py** benchmarks either (a) locally on your Mac or Linux workstation or (b) inside a Docker
+container for a fully reproducible environment.
+
+> ***A tooling suggestion***: prefer Docker for full reproducibility and when sharing results; prefer local runs for fast edit–run cycles and debugging.
+
+### Run Locally
+
+The `ipc-frontier-py` project makes it easy to develop the `ipc_frontier` package and do benchmark runs on a local machine.
+
+**Prerequisites**: Linux or macOS, GNU Make. (The Makefile will install Pyenv and Poetry.)
+
+**Procedure**: Note that the first two steps only need to be completed once per clone of the project repo.
+
+1. **Install prerequisites** (once per machine):
+
+   ```bash
+   make install-tools
+   ```
+
+   This installs Pyenv and Poetry.
+
+2. **Create a runtime environment** (once per repo clone):
+
+    ```bash
+    make setup
+    ```
+
+    This downloads the pinned Python version, creates a local virtual environment, and installs the package and dev dependencies.
+
+3. **Run the benchmarks** with default parameters:
+
+    ```bash
+    poetry run ipc-frontier --out "./results/bench_$(date -u +'%Y-%m-%dT%H-%M-%SZ').jsonl"
+    ```
+
+    This command writes benchmarking results to a timestamped JSONL file under `results/`.
+
+### Run in Docker
+
+Running the benchmarks in Docker ensures a clean, reproducible runtime without requiring any local software installs.
+
+**Prerequisites**: Linux or macOS. Docker installed with the Docker daemon running.
+
+**Procedure**: Run the `docker-bench` target to execute a benchmarking run with default paramters.
+
+```sh
+make docker-bench
+```
+
+This target:
+
+* Builds the multi-stage image for `ipc_frontier` defined in the Dockerfile.
+* Runs the `ipc-frontier` entrypoint of the container with the default benchmarking parameters.
+* Writes results to a timestamped JSONL file under `results/`.
+
 ## 📖 Documentation
 
 The **[`ipc-frontier-py` documentation site](https://ryancswallace.github.io/ipc-frontier-py/)** provides a browsable and searchable reference for the package's modules, classes, and functions. Use the doc site to dig into both the package's public interfaces and its internal implementation details.

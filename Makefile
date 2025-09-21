@@ -6,13 +6,6 @@ TEST_DIR := tests/
 CLEAN_PRUNE_DIRS := .git .venv
 DOCS_SITE_DIR := site/
 
-# Executables
-PYENV ?= pyenv
-POETRY ?= poetry
-GIT ?= git
-PRINT ?= printf
-PYTHON := python
-
 # Python configurations
 export PYTHONNOUSERSITE := 1
 unexport PYTHONPATH
@@ -51,7 +44,7 @@ install-pyenv:
 		cd "$$HOME/.pyenv" && git pull origin master; \
 	else \
 		echo "==> Installing Pyenv..."; \
-		$(GIT) clone https:$(DOUBLESLASH)github.com/pyenv/pyenv.git "$$HOME/.pyenv"; \
+		git clone https:$(DOUBLESLASH)github.com/pyenv/pyenv.git "$$HOME/.pyenv"; \
 	fi; \
 	echo 'export PYENV_ROOT="$$HOME/.pyenv"' >> "$(SHELL_RC)"; \
 	echo 'export PATH="$$PYENV_ROOT/bin:$$PATH"' >> "$(SHELL_RC)"; \
@@ -66,32 +59,32 @@ install-poetry:
 
 .PHONY: init
 init:  ## ONE-TIME, INTERACTIVE project Pyenv and Poetry setup
-	$(PYENV) local $(PYTHON_VERSION)
-	$(POETRY) init
+	pyenv local $(PYTHON_VERSION)
+	poetry init
 
 .PHONY: setup
 setup:  ## Download Python, then create a Poetry environment and install the package
-	TMPDIR="${HOME}/tmp" $(PYENV) install --skip-existing $$(cat .python-version) \
-	&& $(POETRY) config virtualenvs.in-project true \
-	&& $(POETRY) env use $$($(PYENV) which python) \
-	&& $(POETRY) install --all-groups --no-interaction
+	TMPDIR="${HOME}/tmp" pyenv install --skip-existing $$(cat .python-version) \
+	&& poetry config virtualenvs.in-project true \
+	&& poetry env use $$(pyenv which python) \
+	&& poetry install --all-groups --no-interaction
 
 .PHONY: fmt
 fmt: ## Apply auto code formatting and linting.
-	$(POETRY) run ruff check . --fix
-	$(POETRY) run ruff format .
+	poetry run ruff check . --fix
+	poetry run ruff format .
 
 .PHONY: fmttest
 fmttest: ## Test whether code is formatted correctly.
-	$(POETRY) run ruff check .
+	poetry run ruff check .
 
 .PHONY: typetest
 typetest: ## Run type checks.
-	$(POETRY) run pyright $(PACKAGE_DIR) $(TEST_DIR)
+	poetry run pyright $(PACKAGE_DIR) $(TEST_DIR)
 
 .PHONY: unittest
 unittest: ## Run unit tests and end-to-end tests.
-	$(POETRY) run pytest
+	poetry run pytest
 
 .PHONY: test
 test: ## Run all tests: type tests, unit tests, and end-to-end tests.
@@ -99,9 +92,9 @@ test: typetest unittest
 
 .PHONY: docs
 docs: ## Use pdoc to generate a static documentation site.
-	$(POETRY) run pdoc $(PACKAGE) \
+	poetry run pdoc $(PACKAGE) \
 		-o $(DOCS_SITE_DIR) \
-		--footer-text "$$($(POETRY) version)" \
+		--footer-text "$$(poetry version)" \
 		--docformat numpy \
 		--favicon "$(GH_USER_CONTENT_ROOT_URL)/docs/assets/favicon.ico" \
 		--logo "$(GH_USER_CONTENT_ROOT_URL)/docs/assets/logo.svg" \
@@ -132,6 +125,16 @@ clean: ## Delete build/test/coverage artifacts.
 
 .PHONY: changes
 changes: ## Check for uncommitted changes.
-	@$(GIT) status --porcelain=v1 2>/dev/null | grep -q '.*' \
-	&& { $(PRINT) "\nFAILED: Uncommitted changes. Changes to docs or formatting?\n"; exit 1; } \
-	|| { $(PRINT) "\nSUCCESS: Ready to release.\n"; exit 0; }
+	@git status --porcelain=v1 2>/dev/null | grep -q '.*' \
+	&& { printf "\nFAILED: Uncommitted changes. Changes to docs or formatting?\n"; exit 1; } \
+	|| { printf "\nSUCCESS: Ready to release.\n"; exit 0; }
+
+### Benchmarking targets
+BM_OUT ?= ./results/bench_$(shell date -u +"%Y-%m-%dT%H-%M-%SZ").jsonl
+
+.PHONY: docker-bench
+docker-bench: ## Build the Docker runtime image (if needed) and run a baseline benchmark.
+	@mkdir -p $(dir $(BM_OUT))
+	./scripts/run_bench_docker.sh -- \
+	    --out $(BM_OUT)
+	@printf "\nResults written to %s\n" "$(BM_OUT)"
