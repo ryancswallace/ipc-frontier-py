@@ -32,14 +32,16 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "License :: OSI Approved :: MIT License"
 ]
-requires-python = "~=3.13.0"
-dependencies = ["numpy (>=2.3.3,<3.0.0)"]
 
 [project.urls]
 homepage = "https://github.com/ryancswallace/ipc-frontier-py"
 repository = "https://github.com/ryancswallace/ipc-frontier-py"
 documentation = "https://github.com/ryancswallace/ipc-frontier-py"
 "Bug Tracker" = "https://github.com/ryancswallace/ipc-frontier-py/issues"
+
+[tool.poetry.dependencies]
+python = "~=3.13.0"
+numpy = ">=2.3.3,<3.0.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.11.13"
